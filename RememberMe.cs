@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using MelonLoader;
+using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +21,7 @@ namespace RememberMe
     {
         private static VRCUiPageAuthentication PageAuthentication = null;
         private static bool ShouldRemember = false;
+        private static MethodInfo ValidateTextTargetMethod;
 
         public override void VRChat_OnUiManagerInit()
         {
@@ -78,6 +81,9 @@ namespace RememberMe
             authPage.loginUserName.transform.localPosition = new Vector3(authPage.loginUserName.transform.localPosition.x, (authPage.loginUserName.transform.localPosition.y + 30), authPage.loginUserName.transform.localPosition.z);
             authPage.loginPassword.transform.localPosition = new Vector3(authPage.loginPassword.transform.localPosition.x, (authPage.loginPassword.transform.localPosition.y + 30), authPage.loginPassword.transform.localPosition.z);
 
+            ValidateTextTargetMethod = typeof(InputFieldValidator).GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                    .Single(it => it.GetParameters().Length == 1 && XrefScanner.XrefScan(it).Any(jt => jt.Type == XrefType.Global && jt.ReadAsObject()?.ToString() == "^([\\w\\.\\-\\+]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$"));
+
             InputFieldCheck();
             VRCUiManager.prop_VRCUiManager_0.field_Private_Action_1_VRCUiPage_0 = (
                 (VRCUiManager.prop_VRCUiManager_0.field_Private_Action_1_VRCUiPage_0 == null)
@@ -111,11 +117,11 @@ namespace RememberMe
                     {
                         authPage.loginUserName.field_Private_String_0 = SecurePlayerPrefs.GetString("RememberMe_User", "vl9u1grTnvXA");
                         authPage.loginUserName.prop_String_0 = authPage.loginUserName.field_Private_String_0;
-                        authPage.loginUserName.GetComponent<InputFieldValidator>().Method_Public_Void_String_0(authPage.loginUserName.field_Private_String_0);
+                        ValidateTextTargetMethod.Invoke(authPage.loginUserName.GetComponent<InputFieldValidator>(), new object[] { authPage.loginUserName.field_Private_String_0 });
 
                         authPage.loginPassword.field_Private_String_0 = SecurePlayerPrefs.GetString("RememberMe_Pass", "vl9u1grTnvXA");
                         authPage.loginPassword.prop_String_0 = authPage.loginPassword.field_Private_String_0;
-                        authPage.loginPassword.GetComponent<InputFieldValidator>().Method_Public_Void_String_0(authPage.loginPassword.field_Private_String_0);
+                        ValidateTextTargetMethod.Invoke(authPage.loginPassword.GetComponent<InputFieldValidator>(), new object[] { authPage.loginPassword.field_Private_String_0 });
                     }
                 }
                 else
