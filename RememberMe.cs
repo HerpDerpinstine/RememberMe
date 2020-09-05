@@ -11,7 +11,7 @@ namespace RememberMe
     public static class BuildInfo
     {
         public const string Name = "RememberMe";
-        public const string Author = "Herp Derpinstine";
+        public const string Author = "Herp Derpinstine & dave-kun";
         public const string Company = "Lava Gang";
         public const string Version = "1.0.1";
         public const string DownloadLink = "https://github.com/HerpDerpinstine/RememberMe";
