@@ -45,7 +45,7 @@ namespace RememberMe
 
             Transform popupcheckboxtrans = GameObject.Find("UserInterface/MenuContent/Popups/PerformanceSettingsPopup").GetComponent<PopupPerformanceOptions>().dynamicBoneOptionsPage.transform.Find("Checkboxes/LimitDynamicBoneUsage");
 
-            GameObject newcheckbox = GameObject.Instantiate(popupcheckboxtrans.gameObject, authPage.loginUserName.transform.parent);
+            GameObject newcheckbox = GameObject.Instantiate(popupcheckboxtrans.gameObject, authPage.field_Public_UiInputField_0.transform.parent);
             newcheckbox.name = "RememberMe";
             GameObject.Destroy(newcheckbox.transform.GetChild(2).gameObject);
             GameObject.Destroy(newcheckbox.transform.GetChild(3).gameObject);
@@ -66,9 +66,9 @@ namespace RememberMe
                     SecurePlayerPrefs.SetString(ToggleKey, "true", SecurePlayerPrefsPassword);
             }));
 
-            newcheckbox.transform.localPosition = new Vector3((authPage.loginPassword.transform.localPosition.x - 130), (authPage.loginPassword.transform.localPosition.y - 45), authPage.loginPassword.transform.localPosition.z);
-            authPage.loginUserName.transform.localPosition = new Vector3(authPage.loginUserName.transform.localPosition.x, (authPage.loginUserName.transform.localPosition.y + 30), authPage.loginUserName.transform.localPosition.z);
-            authPage.loginPassword.transform.localPosition = new Vector3(authPage.loginPassword.transform.localPosition.x, (authPage.loginPassword.transform.localPosition.y + 30), authPage.loginPassword.transform.localPosition.z);
+            newcheckbox.transform.localPosition = new Vector3((authPage.field_Public_UiInputField_1.transform.localPosition.x - 130), (authPage.field_Public_UiInputField_1.transform.localPosition.y - 45), authPage.field_Public_UiInputField_1.transform.localPosition.z);
+            authPage.field_Public_UiInputField_0.transform.localPosition = new Vector3(authPage.field_Public_UiInputField_0.transform.localPosition.x, (authPage.field_Public_UiInputField_0.transform.localPosition.y + 30), authPage.field_Public_UiInputField_0.transform.localPosition.z);
+            authPage.field_Public_UiInputField_1.transform.localPosition = new Vector3(authPage.field_Public_UiInputField_1.transform.localPosition.x, (authPage.field_Public_UiInputField_1.transform.localPosition.y + 30), authPage.field_Public_UiInputField_1.transform.localPosition.z);
 
             ValidateTextTargetMethod = typeof(InputFieldValidator).GetMethods(BindingFlags.Instance | BindingFlags.Public)
                     .Single(it => it.GetParameters().Length == 1 && XrefScanner.XrefScan(it).Any(jt => jt.Type == XrefType.Global && jt.ReadAsObject()?.ToString() == "^([\\w\\.\\-\\+]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$"));
@@ -94,7 +94,7 @@ namespace RememberMe
                 VRCUiPopupStandard popupStandard = page.TryCast<VRCUiPopupStandard>();
                 if (popupStandard == null)
                     return;
-                if (popupStandard.popupTitleText.text.Equals("LOGIN"))
+                if (popupStandard.field_Public_Text_0.text.Equals("LOGIN"))
                     SavePlayerPrefs();
             }
         }
@@ -108,15 +108,15 @@ namespace RememberMe
             {
                 if (SecurePlayerPrefs.HasKey(UserKey))
                 {
-                    authPage.loginUserName.field_Private_String_0 = SecurePlayerPrefs.GetString(UserKey, SecurePlayerPrefsPassword);
-                    authPage.loginUserName.prop_String_0 = authPage.loginUserName.field_Private_String_0;
-                    ValidateTextTargetMethod.Invoke(authPage.loginUserName.GetComponent<InputFieldValidator>(), new object[] { authPage.loginUserName.field_Private_String_0 });
+                    authPage.field_Public_UiInputField_0.field_Private_String_0 = SecurePlayerPrefs.GetString(UserKey, SecurePlayerPrefsPassword);
+                    authPage.field_Public_UiInputField_0.prop_String_0 = authPage.field_Public_UiInputField_0.field_Private_String_0;
+                    ValidateTextTargetMethod.Invoke(authPage.field_Public_UiInputField_0.GetComponent<InputFieldValidator>(), new object[] { authPage.field_Public_UiInputField_0.field_Private_String_0 });
                 }
                 if (SecurePlayerPrefs.HasKey(PassKey))
                 {
-                    authPage.loginPassword.field_Private_String_0 = SecurePlayerPrefs.GetString(PassKey, SecurePlayerPrefsPassword);
-                    authPage.loginPassword.prop_String_0 = authPage.loginPassword.field_Private_String_0;
-                    ValidateTextTargetMethod.Invoke(authPage.loginPassword.GetComponent<InputFieldValidator>(), new object[] { authPage.loginPassword.field_Private_String_0 });
+                    authPage.field_Public_UiInputField_1.field_Private_String_0 = SecurePlayerPrefs.GetString(PassKey, SecurePlayerPrefsPassword);
+                    authPage.field_Public_UiInputField_1.prop_String_0 = authPage.field_Public_UiInputField_1.field_Private_String_0;
+                    ValidateTextTargetMethod.Invoke(authPage.field_Public_UiInputField_1.GetComponent<InputFieldValidator>(), new object[] { authPage.field_Public_UiInputField_1.field_Private_String_0 });
                 }
                 return;
             }
@@ -133,10 +133,10 @@ namespace RememberMe
                 return;
             if (SecurePlayerPrefs.HasKey(ToggleKey))
             {
-                if (!string.IsNullOrEmpty(authPage.loginUserName.Method_Public_String_0()))
-                    SecurePlayerPrefs.SetString(UserKey, authPage.loginUserName.prop_String_0, SecurePlayerPrefsPassword);
-                if (!string.IsNullOrEmpty(authPage.loginPassword.Method_Public_String_0()))
-                    SecurePlayerPrefs.SetString(PassKey, authPage.loginPassword.prop_String_0, SecurePlayerPrefsPassword);
+                if (!string.IsNullOrEmpty(authPage.field_Public_UiInputField_0.Method_Public_String_0()))
+                    SecurePlayerPrefs.SetString(UserKey, authPage.field_Public_UiInputField_0.prop_String_0, SecurePlayerPrefsPassword);
+                if (!string.IsNullOrEmpty(authPage.field_Public_UiInputField_1.Method_Public_String_0()))
+                    SecurePlayerPrefs.SetString(PassKey, authPage.field_Public_UiInputField_1.prop_String_0, SecurePlayerPrefsPassword);
                 return;
             }
             if (SecurePlayerPrefs.HasKey(UserKey))
