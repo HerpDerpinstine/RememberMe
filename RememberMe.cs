@@ -133,9 +133,9 @@ namespace RememberMe
                 return;
             if (SecurePlayerPrefs.HasKey(ToggleKey))
             {
-                if (!string.IsNullOrEmpty(authPage.field_Public_UiInputField_0.Method_Public_String_0()))
+                if (!string.IsNullOrEmpty(authPage.field_Public_UiInputField_0.prop_String_0))
                     SecurePlayerPrefs.SetString(UserKey, authPage.field_Public_UiInputField_0.prop_String_0, SecurePlayerPrefsPassword);
-                if (!string.IsNullOrEmpty(authPage.field_Public_UiInputField_1.Method_Public_String_0()))
+                if (!string.IsNullOrEmpty(authPage.field_Public_UiInputField_1.prop_String_0))
                     SecurePlayerPrefs.SetString(PassKey, authPage.field_Public_UiInputField_1.prop_String_0, SecurePlayerPrefsPassword);
                 return;
             }
